@@ -3,9 +3,9 @@ import { Button, Form, Input, Textarea } from "@heroui/react";
 import { db } from "../db";
 import { useRef } from "react";
 
-export default function NewNote({ onNoteAdded }) {
-   const formRef = useRef(null);
-    async function onSubmit (e) {
+export default function NewNote({ onNoteAdded }: { onNoteAdded: () => void }) {
+   const formRef = useRef<HTMLFormElement>(null);
+    async function onSubmit (e: any) {
         e.preventDefault();
 
         const {title, content} = Object.fromEntries(new FormData(e.target)) as { title: string, content: string };
@@ -15,7 +15,9 @@ export default function NewNote({ onNoteAdded }) {
             created_at: new Date()
         })
         console.log(id, title, content);
-        formRef.current.reset();
+        if (formRef.current) {
+            formRef.current.reset();
+        }
 
         onNoteAdded()
     }

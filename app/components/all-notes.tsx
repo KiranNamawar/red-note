@@ -4,7 +4,7 @@ import { Button, Card, CardBody } from "@heroui/react"
 import { useEffect, useState } from "react"
 import { db } from "../db"
 
-export default function AllNotes({ noteCount, onRefesh }) {
+export default function AllNotes({ noteCount, onRefesh }: any) {
     const [notes, setNotes] = useState([{ id: 0, title: "", content: "" }]);
     
     async function refresh() {
