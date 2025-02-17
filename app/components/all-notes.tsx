@@ -8,6 +8,9 @@ export default function AllNotes({ noteCount, onRefesh }: any) {
     const [notes, setNotes] = useState([{ id: 0, title: "", content: "" }]);
     
     async function refresh() {
+        if (noteCount === 0) {
+            location.href = location.href
+        }
         await db.notes.clear();
         onRefesh();
     }
