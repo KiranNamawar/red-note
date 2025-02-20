@@ -1,24 +1,14 @@
-'use client'
-import { useState } from "react";
-import AllNotes from "./components/all-notes"
-import NewNote from "./components/new-note";
+import AllNotes from "./components/all-notes";
+import CreateNote from "./components/create-note";
+import prisma from "./util/prisma";
 
-export default function Home() {
-    const [noteCount, setNoteCount] = useState(0);
-
-  const handleNoteAdded = () => {
-    setNoteCount(noteCount + 1);
-  };
-  const handleRefresh = () => {
-    setNoteCount(0);
-  }
-    return (
-        <div className="">
-            <main className="flex flex-col items-center py-2">
-                <h1 className="font-semibold text-5xl text-red-500 p-5">Red Note</h1>
-                <NewNote onNoteAdded={handleNoteAdded} />
-                <AllNotes noteCount={noteCount} onRefesh={handleRefresh} />
-            </main>
-        </div>
-    );
+export default async function Home() {
+  const notes = await prisma.note.findMany()
+  return (
+    <main className="m-1 min-h-screen">
+      <h1 className="text-4xl text-red-500 text-center m-4 font-bold">Red Notes</h1>
+      <CreateNote />
+      <AllNotes notes={notes} />
+    </main>
+  )
 }

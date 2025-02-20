@@ -1,41 +1,20 @@
 'use client'
+import { Card, CardBody, CardFooter, CardHeader } from "@heroui/react";
+import { Note } from "@prisma/client";
 
-import { Button, Card, CardBody } from "@heroui/react"
-import { useEffect, useState } from "react"
-import { db } from "../db"
-
-export default function AllNotes({ noteCount, onRefesh }: any) {
-    const [notes, setNotes] = useState([{ id: 0, title: "", content: "" }]);
-    
-    async function refresh() {
-        if (noteCount === 0) {
-            location.href = location.href
-        }
-        await db.notes.clear();
-        onRefesh();
-    }
-
-    useEffect(() => {
-        async function getNotes() {
-            const notes = await db.notes.toArray();
-            setNotes(notes);
-        }
-        getNotes();
-    }, [noteCount]);
+export default function AllNotes({notes}: {notes : Note[]}) {
     return (
-        <section className="md:w-1/2 w-4/5 py-5">
-            <div className="flex justify-between items-center">
-                <h2 className="text-2xl font-semibold text-orange-200">All Notes</h2>
-                <Button className="bg-blue-500 text-white" onPress={refresh}>Refresh</Button>
+        <>
+            <h2 className="text-2xl text-orange-300 font-bold mt-4">All Notes</h2>
+            <div className="m-4 grid md:grid-cols-3 gap-4">
+                {notes.map(note => (
+                    <Card className="bg-gray-700" id={note.id} key={note.id}>
+                        <CardHeader className="font-bold text-blue-500">{note.title}</CardHeader>
+                        <CardBody className="font-serif text-white">{note.content}</CardBody>
+                        <CardFooter className="text-sm">{note.createdAt.toDateString()}</CardFooter>
+                    </Card>
+                ))}
             </div>
-            {notes.map(note => (
-                <Card key={note.id} className="my-2">
-                    <CardBody>
-                        <h3 className="text-xl font-semibold text-blue-300">{note.title}</h3>
-                        <p className="text-white">{note.content}</p>
-                    </CardBody>
-                </Card>
-            ))}
-        </section>
+        </>
     )
 }
