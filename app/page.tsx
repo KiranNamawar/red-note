@@ -1,8 +1,10 @@
+import { connection } from "next/server";
 import AllNotes from "./components/all-notes";
 import CreateNote from "./components/create-note";
 import prisma from "./util/prisma";
 
 export default async function Home() {
+  await connection()
   const notes = await prisma.note.findMany()
   return (
     <main className="m-1 min-h-screen">
