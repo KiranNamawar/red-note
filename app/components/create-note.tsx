@@ -7,9 +7,7 @@ export default function CreateNote() {
         <Form action={createNoteAction} className="lg:w-1/2 m-auto">
             <Input name="title" label="Title" />
             <Textarea name="content" label="Content" />
-            <Button className="bg-blue-700 m-auto" type="submit" onPress={function temp() {
-                location.href = location.href
-            }}>Create</Button>
+            <Button className="bg-blue-700 m-auto" type="submit">Create</Button>
         </Form>
     )
 }

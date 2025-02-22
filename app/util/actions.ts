@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from "next/cache";
 import prisma from "./prisma";
 
 export async function createNoteAction(formData: FormData) {
@@ -12,5 +13,6 @@ export async function createNoteAction(formData: FormData) {
             content
         }
     });
+    revalidatePath('/');
     console.log(note);
 }
