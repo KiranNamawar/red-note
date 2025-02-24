@@ -1,9 +1,10 @@
 import { connection } from 'next/server';
-import AllNotes from './components/all-notes';
-import CreateNote from './components/create-note';
 import prisma from './util/prisma';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import Link from 'next/link';
+import TipTap from './components/tip-tap';
+import AllNotes from './components/all-notes';
+import Image from 'next/image';
 
 export default async function Home() {
     await connection();
@@ -41,12 +42,11 @@ export default async function Home() {
             updatedAt: 'desc',
         },
     });
+    console.log(notes);
     return (
         <main className="m-1 min-h-screen">
-            <h1 className="m-4 text-center text-4xl font-bold text-red-500">
-                Red Notes
-            </h1>
-            <CreateNote userId={dbUser.id} />
+            <Image alt="" fill src='https://images.unsplash.com/photo-1740386072835-938733c974e1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'/>
+            <TipTap userId={dbUser.id} />
             <AllNotes notes={notes} />
         </main>
     );
