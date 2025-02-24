@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@clerk/nextjs": "^6.12.0",
+        "@clerk/themes": "^2.2.19",
         "@heroui/react": "^2.6.14",
         "@prisma/client": "^6.4.1",
         "framer-motion": "^12.4.3",

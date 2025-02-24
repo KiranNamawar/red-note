@@ -26,19 +26,19 @@ export async function deleteAllNotesAction() {
     revalidatePath('/');
 }
 
-export async function editNoteAction(formData:FormData) {
-    const title = formData.get("title") as string;
-    const content = formData.get("content") as string;
-    const id = formData.get("id") as string;
+export async function editNoteAction(formData: FormData) {
+    const title = formData.get('title') as string;
+    const content = formData.get('content') as string;
+    const id = formData.get('id') as string;
     await prisma.note.update({
         where: {
-            id
+            id,
         },
         data: {
             title,
-            content
-        }
-    })
-    revalidatePath("/");
-    redirect("/")
+            content,
+        },
+    });
+    revalidatePath('/');
+    redirect('/');
 }

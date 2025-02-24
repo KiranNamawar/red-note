@@ -38,7 +38,7 @@ export default async function Home() {
             userId: dbUser?.id,
         },
         orderBy: {
-            createdAt: 'desc',
+            updatedAt: 'desc',
         },
     });
     return (

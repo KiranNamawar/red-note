@@ -10,6 +10,7 @@ import {
 import { Note } from '@prisma/client';
 import { deleteAllNotesAction } from '../util/actions';
 import Link from 'next/link';
+import lastUpdated from '../util/last-updated';
 
 export default function AllNotes({ notes }: { notes: Note[] }) {
     return (
@@ -26,16 +27,16 @@ export default function AllNotes({ notes }: { notes: Note[] }) {
             <div className="m-4 grid gap-4 md:grid-cols-3">
                 {notes.map((note) => (
                     <Link href={`notes/${note.id}`} key={note.id}>
-                    <Card className="bg-gray-700">
-                        <CardHeader className="font-bold text-blue-500">
-                            {note.title}
-                        </CardHeader>
-                        <CardBody className="font-serif text-white">
-                            {note.content}
-                        </CardBody>
-                        <CardFooter className="flex justify-end text-sm text-yellow-200">
-                            {note.createdAt.toDateString()}
-                        </CardFooter>
+                        <Card className="">
+                            <CardHeader className="font-bold text-blue-500">
+                                {note.title}
+                            </CardHeader>
+                            <CardBody className="font-sans text-white">
+                                {note.content}
+                            </CardBody>
+                            <CardFooter className="flex justify-end text-sm text-yellow-200">
+                                {lastUpdated(note.updatedAt)}
+                            </CardFooter>
                         </Card>
                     </Link>
                 ))}
